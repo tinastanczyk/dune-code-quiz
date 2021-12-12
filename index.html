@@ -11,45 +11,51 @@ WHEN all questions are answered or the timer reaches 0
 THEN the game is over
 WHEN the game is over
 THEN I can save my initials and my score -->
-<head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="stylesheet" href="style.css">
-  <title>Dune Quiz</title>
-</head>
-<body>
-  <header>
-    <a href="#">View High Scores</a>
-    <figure>Timer:</figure>
-  </header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="style.css" />
+    <title>Dune Quiz</title>
+  </head>
+  <body>
+    <header>
+      <a href="#">View High Scores</a>
+      <figure id="timer">Timer: </figure>
+    </header>
 
-  <main>
-    <h1>Dune Quiz Challenge</h1>
-    <p>Description of Quiz</p>
-    <!-- Add start button -->
+    <main>
+      <section id = "startScrn" data-state = "shown">
+        <h1>Dune Quiz Challenge</h1>
+        <p>Description of Quiz</p>
+        <!-- Add start button -->
+        <button type="button" id="startBtn">Start Quiz</button>
+      </section>
+      <section id = "questionScrn" data-state = "hidden">
+      <h1 id = "quest1" data-state = "hidden" data-question1 = "Question 1" data-question2 = "Question 2" data-question3 = "Question 3" data-question4 = "Question 4" data-question5 = "Question 5"></h1>
+      <!-- add buttons for choices -->
+      <ol>
+        <li><button type = "button" class = "options"></button></li>
+        <li><button type = "button" class = "options"></button></li>
+        <li><button type = "button" class = "options"></button></li>
+        <li><button type = "button" class = "options"></button></li>
+      </ol>
+      <h2 id = "answer1">Answer</h2>
+    </section>
+    <section id = "scoreScrn" data-state = "hidden">
+      <h1>All Done!</h1>
+      <h2>Score:</h2>
+      <!-- Add initials input -->
+      <!-- Add submit button -->
+    </section>
+    <section id = "highscoreScrn" data-state = "hidden">
+      <h1>High Scores</h1>
+      <!-- Show list of high scores -->
+      <!-- Add go back button -->
+      <!-- Add clear high scores button -->
+    </section>
+    </main>
 
-    <h1>Question</h1>
-    <!-- add buttons for choices -->
-    <ol>
-      <li>A</li>
-      <li>B</li>
-      <li>C</li>
-      <li>D</li>
-    </ol>
-    <h2>Answer</h2>
-
-    <h1>All Done!</h1>
-    <h2>Score: </h2>
-    <!-- Add initials input -->
-    <!-- Add submit button -->
-
-    <h1>High Scores</h1>
-    <!-- Show list of high scores -->
-    <!-- Add go back button -->
-    <!-- Add clear high scores button -->
-  </main>
-
-  <script src = "script.js"></script>
-</body>
+    <script src="script.js"></script>
+  </body>
 </html>
