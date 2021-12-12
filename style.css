@@ -1,6 +1,9 @@
 #questionScrn{
   display: none;
 }
+#answers{
+  display: none;
+}
 #scoreScrn{
   display: none;
 }

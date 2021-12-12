@@ -2,9 +2,9 @@
 <html lang="en">
   <!-- GIVEN I am taking a code quiz
 WHEN I click the start button
-THEN a timer starts and I am presented with a question
+√THEN a timer starts and I am presented with a question
 WHEN I answer a question
-THEN I am presented with another question
+√THEN I am presented with another question
 WHEN I answer a question incorrectly
 THEN time is subtracted from the clock
 WHEN all questions are answered or the timer reaches 0
@@ -32,15 +32,15 @@ THEN I can save my initials and my score -->
         <button type="button" id="startBtn">Start Quiz</button>
       </section>
       <section id = "questionScrn" data-state = "hidden">
-      <h1 id = "quest1" data-state = "hidden" data-question1 = "Question 1" data-question2 = "Question 2" data-question3 = "Question 3" data-question4 = "Question 4" data-question5 = "Question 5"></h1>
+      <h1 id = "questions" data-state = "hidden" ></h1>
       <!-- add buttons for choices -->
-      <ol>
-        <li><button type = "button" class = "options"></button></li>
-        <li><button type = "button" class = "options"></button></li>
-        <li><button type = "button" class = "options"></button></li>
-        <li><button type = "button" class = "options"></button></li>
+      <ol class = "optContainer">
+        <li><button type = "button" class = "options" id = "optA"></button></li>
+        <li><button type = "button" class = "options" id = "optB"></button></li>
+        <li><button type = "button" class = "options" id = "optC"></button></li>
+        <li><button type = "button" class = "options" id = "optD"></button></li>
       </ol>
-      <h2 id = "answer1">Answer</h2>
+      <h2 id = "answers" data-right = "Correct!" data-wrong = "Wrong"></h2>
     </section>
     <section id = "scoreScrn" data-state = "hidden">
       <h1>All Done!</h1>

@@ -3,7 +3,54 @@ timerFig = document.getElementById("timer");
 startButton = document.getElementById("startBtn");
 startScreen = document.getElementById("startScrn");
 questionScreen = document.getElementById("questionScrn");
-options = document.querySelector(".options");
+question = document.getElementById("questions");
+optContainer = document.querySelector(".optContainer");
+A = document.getElementById("optA");
+B = document.getElementById("optB");
+C = document.getElementById("optC");
+D = document.getElementById("optD");
+answers = document.getElementById("answers");
+// Creating an array of objects to hold all of the questions with their respective options and correct answer
+var quizQuest = [{
+  q: "Question 1",
+  a: "A",
+  b: "B",
+  c: "C",
+  d: "D",
+  ans: "A"
+},
+{
+  q: "Question 2",
+  a: "",
+  b: "",
+  c: "",
+  d: "",
+  ans: ""
+},
+{
+  q: "Question 3",
+  a: "",
+  b: "",
+  c: "",
+  d: "",
+  ans: ""
+},
+{
+  q: "Question 4",
+  a: "",
+  b: "",
+  c: "",
+  d: "",
+  ans: ""
+},
+{
+  q: "Question 5",
+  a: "",
+  b: "",
+  c: "",
+  d: "",
+  ans: ""
+}];
 
 function time(){
 
@@ -13,6 +60,8 @@ function time(){
     if(timeLeft > 0){
       timerFig.textContent = "Timer: " + timeLeft;
       timeLeft--;
+    }else if(timeLeft === 0){
+      clearInterval(timeInterval);
     }else{
       timerFig.textContent = "Timer: " + timeLeft;
       //switch to screen that says score
@@ -23,24 +72,41 @@ function time(){
 }
 // add an event listener to listen for when the start button is pressed
 startButton.addEventListener("click", function (){
+  //when start button is pressed, start the timer
   time();
+  //if start button is pressed then switch to first question 
   if(startScreen.dataset.state === "shown"){
     startScreen.style.display = "none";
     startScreen.dataset.state = "hidden";
     questionScreen.style.display = "block";
     questionScreen.dataset.state = "shown";
+    question.textContent = quizQuest[0].q;
+    A.textContent = quizQuest[0].a;
+    B.textContent = quizQuest[0].b;
+    C.textContent = quizQuest[0].c;
+    D.textContent = quizQuest[0].d;
   }
 })
 
-
-
-//if start button is pressed then switch to first question 
-
-
-
-//when start button is pressed, start the timer
-
 // add event listener to listen for a click on one of the answers
+
+optContainer.addEventListener("click", function (event){
+  var input = event.target;
+  if(input.matches(".options")){
+    answers.style.display = "block";
+    answers.textContent = answers.dataset.right;
+    if(question.textContent === quizQuest[0].q){
+      question.textContent = quizQuest[1].q;
+    }else if(question.textContent === quizQuest[1].q){
+      question.textContent = quizQuest[2].q;
+    }else if(question.textContent === quizQuest[2].q){
+      question.textContent = quizQuest[3].q;
+    }else if(question.textContent === quizQuest[3].q){
+      question.textContent = quizQuest[4].q;
+    }
+  }
+})
+
 
 //when answer is clicked show whether it is right or wrong
 
