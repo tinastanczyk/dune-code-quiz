@@ -10,6 +10,8 @@ B = document.getElementById("optB");
 C = document.getElementById("optC");
 D = document.getElementById("optD");
 answers = document.getElementById("answers");
+scoreScreen = document.getElementById("scoreScrn");
+userScore = document.getElementById("usrScore");
 // Creating an array of objects to hold all of the questions with their respective options and correct answer
 var quizQuest = [
   {
@@ -54,20 +56,44 @@ var quizQuest = [
   },
 ];
 var timeLeft = 60;
+var index = 0;
+var score = 0;
+var opt = 0;
 function time() {
-  
   var timeInterval = setInterval(function () {
     if (timeLeft > 0) {
       timerFig.textContent = "Timer: " + timeLeft;
       timeLeft--;
-    } else if (timeLeft === 0) {
+    }
+    if (opt === 5) {
+      getScore(timeLeft);
+      console.log(timeLeft);
+      timerFig.textContent = "Timer: " + timeLeft;
+      clearInterval(timeInterval); 
+    }
+    if (timeLeft === 0 || timeLeft < 0) {
+      getScore(timeLeft);
+      console.log(timeLeft);
+      timerFig.textContent = "Timer: " + timeLeft;
       clearInterval(timeInterval);
-    } else {
+    } 
+    else {
       timerFig.textContent = "Timer: " + timeLeft;
       //switch to screen that says score
     }
   }, 1000);
 }
+
+function getScore(){
+  score = timeLeft;
+  questionScreen.style.display = "none";
+  question.dataset.state = "hidden";
+  scoreScreen.style.display = "block";
+  scoreScreen.dataset.state = "shown";
+  userScore.textContent = "Score: " + score;
+
+}
+
 // add an event listener to listen for when the start button is pressed
 startButton.addEventListener("click", function () {
   //when start button is pressed, start the timer
@@ -87,38 +113,42 @@ startButton.addEventListener("click", function () {
 });
 
 // add event listener to listen for a click on one of the answers
-var index = 0;
+
 optContainer.addEventListener("click", function (event) {
   var input = event.target;
-  
+  opt++;
   if (input.matches(".options")) {
-    if(input.textContent === quizQuest[index].ans){
+    //when answer is clicked show whether it is right or wrong
+    if (input.textContent === quizQuest[index].ans) {
       console.log(input.textContent);
       answers.style.display = "block";
       answers.textContent = answers.dataset.right;
-    }else{
+    } else {
       console.log(input.textContent);
       answers.style.display = "block";
       answers.textContent = answers.dataset.wrong;
+      // if the answer is wrong then subtract time from the timer and switch to next question
       timeLeft = timeLeft - 10;
     }
-    for(let i=0; i<4; i++){
-    if (question.textContent === quizQuest[index].q) {
-      question.textContent = quizQuest[index+1].q;
-      A.textContent = quizQuest[index+1].a;
-      B.textContent = quizQuest[index+1].b;
-      C.textContent = quizQuest[index+1].c;
-      D.textContent = quizQuest[index+1].d; 
-      
+    for (let i = 0; i < 3; i++) {
+      if (question.textContent === quizQuest[index].q) {
+        question.textContent = quizQuest[index + 1].q;
+        A.textContent = quizQuest[index + 1].a;
+        B.textContent = quizQuest[index + 1].b;
+        C.textContent = quizQuest[index + 1].c;
+        D.textContent = quizQuest[index + 1].d;
+      }
     }
-  }
-  index++;   
+    if (index < 3) {
+      index++;
+    }
+
   }
 });
 
-//when answer is clicked show whether it is right or wrong
 
-// if the answer is wrong then subtract time from the timer and switch to next question
+
+
 
 // if the timer is on 0 then end the game and switch to saying score and prompting user to enter their initials
 
