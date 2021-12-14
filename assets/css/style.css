@@ -5,7 +5,7 @@ body{
   display: flex;
   flex-direction: column;
   align-items: center;
-  background-image: url("./dune-cover.jpg");
+  background: url("../images/dune-cover.jpeg");
   color: wheat;
   font-family:Verdana, Geneva, Tahoma, sans-serif;
 }
