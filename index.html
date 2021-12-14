@@ -20,40 +20,45 @@ THEN I can save my initials and my score -->
   </head>
   <body>
     <header>
-      <a href="#">View High Scores</a>
-      <figure id="timer">Timer: </figure>
+      <article id = "viewHS">View High Scores</article>
+      <figure id="timer" data-state="shown">Timer:</figure>
     </header>
 
     <main>
-      <section id = "startScrn" data-state = "shown">
+      <section id="startScrn" data-state="shown">
         <h1>Dune Quiz Challenge</h1>
         <p>Description of Quiz</p>
         <!-- Add start button -->
         <button type="button" id="startBtn">Start Quiz</button>
       </section>
-      <section id = "questionScrn" data-state = "hidden">
-      <h1 id = "questions" data-state = "hidden" ></h1>
-      <!-- add buttons for choices -->
-      <ol class = "optContainer">
-        <li><button type = "button" class = "options" id = "optA"></button></li>
-        <li><button type = "button" class = "options" id = "optB"></button></li>
-        <li><button type = "button" class = "options" id = "optC"></button></li>
-        <li><button type = "button" class = "options" id = "optD"></button></li>
-      </ol>
-      <h2 id = "answers" data-right = "Correct!" data-wrong = "Wrong"></h2>
-    </section>
-    <section id = "scoreScrn" data-state = "hidden">
-      <h1>All Done!</h1>
-      <h2 id = "usrScore"></h2>
-      <!-- Add initials input -->
-      <!-- Add submit button -->
-    </section>
-    <section id = "highscoreScrn" data-state = "hidden">
-      <h1>High Scores</h1>
-      <!-- Show list of high scores -->
-      <!-- Add go back button -->
-      <!-- Add clear high scores button -->
-    </section>
+      <section id="questionScrn" data-state="hidden">
+        <h1 id="questions" data-state="hidden"></h1>
+        <!-- add buttons for choices -->
+        <ol class="optContainer">
+          <li><button type="button" class="options" id="optA"></button></li>
+          <li><button type="button" class="options" id="optB"></button></li>
+          <li><button type="button" class="options" id="optC"></button></li>
+          <li><button type="button" class="options" id="optD"></button></li>
+        </ol>
+        <h2 id="answers" data-right="Correct!" data-wrong="Wrong"></h2>
+      </section>
+      <section id="scoreScrn" data-state="hidden">
+        <h1>All Done!</h1>
+        <h2 id="usrScore"></h2>
+        <!-- Add initials input -->
+        <label for="uInit">Enter Initials: </label>
+        <input type="text" id="user-init" name="uInit" />
+
+        <!-- Add submit button -->
+        <input type="submit" value="Submit" id = "submit" />
+      </section>
+      <section id="highscoreScrn" data-state="hidden">
+        <h1>High Scores</h1>
+        <!-- Show list of high scores -->
+        <ul id = "scoreList"></ul>
+        <!-- Add go back button -->
+        <!-- Add clear high scores button -->
+      </section>
     </main>
 
     <script src="script.js"></script>
