@@ -1,12 +1,94 @@
+*{
+}
+body{
+  max-width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background-image: url("./dune-cover.jpg");
+  color: wheat;
+  font-family:Verdana, Geneva, Tahoma, sans-serif;
+}
+header{
+  display: grid;
+  grid-template-columns: auto auto;
+  width: 100vw;
+
+}
+.optContainer ol li{
+  text-align: center;
+}
+#viewHS{
+  width: 20%;
+  margin-top: 1vh;
+  margin-left: 1vw;
+  background:linear-gradient(white, rgb(252, 123, 3));
+  border-radius: 8px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#timer{
+ display: flex;
+ justify-content: flex-end;
+  
+}
+#startScrn{
+  background: linear-gradient(0.40turn, rgb(252, 123, 3), black);
+  border-radius: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 300px;
+  width: 300px;
+  padding: 20px;
+  box-shadow: black 8px 5px;
+}
+#startBtn{
+  background:linear-gradient(white, wheat);
+  border-radius: 8px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+  padding: 16px;
+}
 #questionScrn{
   display: none;
+  background-color: black;
+  height: 38vh;
+  width: 65vw;
+  
 }
+
 #answers{
   display: none;
 }
 #scoreScrn{
   display: none;
+  background-color: black;
+  height: 38vh;
+  width: 65vw;
+  text-align: center;
 }
 #highscoreScrn{
   display: none;
+  background-color: black;
+  text-align:center ;
+}
+#highscoreScrn ul{
+  list-style-type: none;
+}
+
+#highscoreScrn ul li{
+  text-align: start;
+}
+
+#optA, #optB, #optC, #optD, #submit, #clear, #goBack{
+  background:linear-gradient(white, rgb(252, 123, 3));
+  border-radius: 8px;
+  font-family: Verdana, Geneva, Tahoma, sans-serif;
+}
+#optA:hover, #optB:hover, #optC:hover, #optD:hover, #submit:hover, #clear:hover, #goBack:hover{
+  background:linear-gradient(0.5turn, white, rgb(250, 31, 2));
+}
+
+#viewHS:hover, #startBtn:hover{
+  box-shadow: red 1px 1px 5px;
 }

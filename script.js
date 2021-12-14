@@ -17,47 +17,49 @@ submitButton = document.getElementById("submit");
 viewHS = document.getElementById("viewHS");
 highScreen = document.getElementById("highscoreScrn");
 userRankings = document.getElementById("scoreList");
+goBackButton = document.getElementById("goBack");
+clearHSButton = document.getElementById("clear");
 // Creating an array of objects to hold all of the questions with their respective options and correct answer
 var quizQuest = [
   {
-    q: "Question 1",
-    a: "A",
-    b: "B",
-    c: "C",
-    d: "D",
-    ans: "C",
+    q: "Question 1: Who is Shai-Hulud?",
+    a: "The Duke of Atriedes",
+    b: "Reverend Mother of the Fremen",
+    c: "A laser weapon",
+    d: "The Sandworm of Arrakis",
+    ans: "The Sandworm of Arrakis",
   },
   {
-    q: "Question 2",
-    a: "1",
-    b: "2",
-    c: "3",
-    d: "4",
-    ans: "4",
+    q: "Question 2: A _____ is used in the desert to reclaim moisture released from the body and recycle it.",
+    a: "Orinthopter",
+    b: "Melange",
+    c: "Stillsuit",
+    d: "Crysknife",
+    ans: "Stillsuit",
   },
   {
-    q: "Question 3",
-    a: "5",
-    b: "6",
-    c: "7",
-    d: "8",
-    ans: "5",
+    q: "Question 3: The fremen want to hide their abundant fields of melange from this space travel monopoly:",
+    a: "The Guild",
+    b: "The Kwisatz Haderach",
+    c: "The Judge of Change",
+    d: "The Gom Jabbar",
+    ans: "The Guild",
   },
   {
-    q: "Question 4",
-    a: "AA",
-    b: "BB",
-    c: "CC",
-    d: "DD",
-    ans: "BB",
+    q: "Question 4: Paul Atriedes is known as all of the following except:",
+    a: "Lisan al-Gaib",
+    b: "Mentat",
+    c: "Maud’dib",
+    d: "Kwisatz Haderach",
+    ans: "Mentat",
   },
   {
-    q: "Question 5",
-    a: "11",
-    b: "22",
-    c: "33",
-    d: "44",
-    ans: "11",
+    q: "Question 5: Lady Jessica is the biological daughter of:",
+    a: "Baron Harkonnen",
+    b: "Liet-Kynes",
+    c: "Stilgar",
+    d: "Duncan Idaho",
+    ans: "Baron Harkonnen",
   },
 ];
 var timeLeft = 60;
@@ -75,14 +77,12 @@ function time() {
     //if the user is on the last question, then switch to saying score and prompting user to enter their initials
     if (opt === 5) {
       getScore(timeLeft);
-      console.log(timeLeft);
       timerFig.textContent = "Timer: " + timeLeft;
       clearInterval(timeInterval);
     }
     // if the timer is on 0 then end the game and switch to saying score and prompting user to enter their initials
     if (timeLeft === 0 || timeLeft < 0) {
       getScore(timeLeft);
-      console.log(timeLeft);
       timerFig.textContent = "Timer: " + timeLeft;
       clearInterval(timeInterval);
     } else {
@@ -91,32 +91,7 @@ function time() {
     }
   }, 1000);
 }
-
-function getScore() {
-  score = timeLeft;
-  questionScreen.style.display = "none";
-  question.dataset.state = "hidden";
-  scoreScreen.style.display = "block";
-  scoreScreen.dataset.state = "shown";
-  userScore.textContent = "Score: " + score;
-  // save the user's score and initials in local storage as an array of objects
-  submitButton.addEventListener("click", function saveScore(event) {
-    event.preventDefault();
-    console.log(score);
-    console.log(userInitials.value);
-    // objects will contain initials and score, the array will contain the multiple users that play
-    var userScores = JSON.parse(localStorage.getItem("userScores") || "[]");
-    var user = {
-      usr: userInitials.value.trim(),
-      hscore: timeLeft,
-    };
-    userScores.push(user);
-    localStorage.setItem("userScores", JSON.stringify(userScores));
-    console.log(userScores);
-  });
-}
-//when the user clicks on 'view highscores' they are presented with a table of initials and scores next to them, ranked from highest to lowest.
-viewHS.addEventListener("click", function viewHighScores() {
+function viewHighScores() {
   questionScreen.style.display = "none";
   questionScreen.dataset.state = "hidden";
   startScreen.style.display = "none";
@@ -128,19 +103,70 @@ viewHS.addEventListener("click", function viewHighScores() {
   highScreen.style.display = "block";
   highScreen.dataset.state = "shown";
   var hsList = JSON.parse(localStorage.getItem("userScores"));
-  for(let i=0; i<hsList.length; i++){
+  if (hsList === null) {
+    return;
+  }
+  userRankings.innerHTML = "";
+  for (let i = 0; i < hsList.length; i++) {
     var userI = hsList[i].usr;
     var uHS = hsList[i].hscore;
-    console.log(hsList[i].usr);
-    console.log(hsList[i].hscore);
     var li = document.createElement("li");
     li.textContent = "User: " + userI + " Score: " + uHS;
     userRankings.append(li);
   }
+}
+ // save the user's score and initials in local storage as an array of objects
+function saveScore(event) {
+  event.preventDefault();
+  // objects will contain initials and score, the array will contain the multiple users that play
+  var userScores = JSON.parse(localStorage.getItem("userScores") || "[]");
+  var user = {
+    usr: userInitials.value.trim(),
+    hscore: timeLeft,
+  };
+  userScores.push(user);
+  localStorage.setItem("userScores", JSON.stringify(userScores));
+  viewHighScores();
+}
+// This function shows the users score on the screen and prompts them to enter their initals.
+function getScore() {
+  questionScreen.style.display = "none";
+  question.dataset.state = "hidden";
+  scoreScreen.style.display = "block";
+  scoreScreen.dataset.state = "shown";
+  userScore.textContent = "Score: " + timeLeft;
+ 
+}
+//When the user clicks the submit button, then the function saveScore is called
+submitButton.addEventListener("click", saveScore);
+//when the user clicks on 'view highscores' they are presented with a table of initials and scores next to them.
+viewHS.addEventListener("click", viewHighScores);
+//when user clicks on 'view highscores' add an event listener to listen for a click on the button 'clear highscores' to clear all local storage
+clearHSButton.addEventListener("click", function (event) {
+  event.preventDefault;
+  localStorage.clear();
+  userRankings.textContent = "";
 });
-
-// add an event listener to listen for when the start button is pressed
-startButton.addEventListener("click", function () {
+//When the go back button is clicked the start screen is displayed and all other screens are hidden
+goBackButton.addEventListener("click",function(){
+  questionScreen.style.display = "none";
+  questionScreen.dataset.state = "hidden";
+  startScreen.style.display = "flex";
+  startScreen.dataset.state = "shown";
+  scoreScreen.style.display = "none";
+  scoreScreen.dataset.state = "hidden";
+  timerFig.style.display = "flex";
+  timerFig.dataset.state = "shown";
+  highScreen.style.display = "none";
+  highScreen.dataset.state = "hidden";
+});
+//this function resets all of the indices, answers and time and displays the first question on the screen
+function startGame() {
+  timeLeft = 60;
+  index = 0;
+  opt = 0;
+  answers.innerHTML = "";
+  
   //when start button is pressed, start the timer
   time();
   //if start button is pressed then switch to first question
@@ -155,41 +181,41 @@ startButton.addEventListener("click", function () {
     C.textContent = quizQuest[0].c;
     D.textContent = quizQuest[0].d;
   }
-});
+}
 
-// add event listener to listen for a click on one of the answers
+// add an event listener to listen for when the start button is pressed
+startButton.addEventListener("click", startGame);
 
-optContainer.addEventListener("click", function (event) {
+// This function checks whether the user clicked the right answer and skips to the next question once an answer is selected.
+function checkOptions(event){
   var input = event.target;
   opt++;
   if (input.matches(".options")) {
     //when answer is clicked show whether it is right or wrong
     if (input.textContent === quizQuest[index].ans) {
-      console.log(input.textContent);
       answers.style.display = "block";
       answers.textContent = answers.dataset.right;
     } else {
-      console.log(input.textContent);
       answers.style.display = "block";
       answers.textContent = answers.dataset.wrong;
       // if the answer is wrong then subtract time from the timer and switch to next question
       timeLeft = timeLeft - 10;
     }
-    for (let i = 0; i < 3; i++) {
-      if (question.textContent === quizQuest[index].q) {
-        question.textContent = quizQuest[index + 1].q;
-        A.textContent = quizQuest[index + 1].a;
-        B.textContent = quizQuest[index + 1].b;
-        C.textContent = quizQuest[index + 1].c;
-        D.textContent = quizQuest[index + 1].d;
+    if (index < 4) {
+      for (let i = 0; i < 4; i++) {
+        if (question.textContent === quizQuest[index].q) {
+          question.textContent = quizQuest[index + 1].q;
+          A.textContent = quizQuest[index + 1].a;
+          B.textContent = quizQuest[index + 1].b;
+          C.textContent = quizQuest[index + 1].c;
+          D.textContent = quizQuest[index + 1].d;
+        }
       }
-    }
-    if (index < 3) {
       index++;
     }
   }
-});
+}
 
+// add event listener to listen for a click on one of the answers
+optContainer.addEventListener("click", checkOptions);
 
-
-//when user clicks on 'view highscores' add an event listener to listen for a click on the button 'clear highscores' to clear all local storage or 'go back' to bring the user back to the start button screen
